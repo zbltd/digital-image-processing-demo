@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>图像实验台 · 数字图像处理作业 01—02</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <div class="rail-brand">
+      <span class="mark">IP</span>
+      <span class="rail-word">DIGITAL<br>IMAGE<br>PROCESSING</span>
+    </div>
+
+    <nav class="rail-nav" role="tablist" aria-label="作业切换">
+      <button class="rail-tab is-active" role="tab" aria-selected="true" aria-controls="hw1" data-tab="hw1">
+        <span class="num">01</span>
+        <span class="name">图像的基本运算</span>
+      </button>
+      <button class="rail-tab" role="tab" aria-selected="false" aria-controls="hw2" data-tab="hw2">
+        <span class="num">02</span>
+        <span class="name">图像增强</span>
+      </button>
+    </nav>
+
+    <div class="rail-foot"><span class="mono">DIP · 2026</span></div>
+  </aside>
+
+  <main class="stage">
+    <header class="masthead">
+      <div>
+        <div class="eyebrow">ASSIGNMENT SET 01—02 / DIGITAL IMAGE PROCESSING</div>
+        <h1>图像实验台</h1>
+        <p class="sub">固定场景检测、几何变换与低照度增强的对照实验</p>
+      </div>
+      <div class="mast-status">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="status">就绪 · 示例数据已载入</span>
+      </div>
+    </header>
+
+    <!-- ==================== 作业一 ==================== -->
+    <section id="hw1" class="panel" role="tabpanel" aria-labelledby="tab-hw1">
+      <div class="section-head">
+        <span class="idx">01 / A</span>
+        <h2>图像相减检测</h2>
+        <span class="spec">768 × 576 · OTSU</span>
+      </div>
+      <p class="lede">对无人背景与当前场景逐像素作差并取绝对值，用大津法自动阈值分割，再经开闭运算和连通域标记，定位进入场景的人。</p>
+
+      <div class="filmstrip">
+        <figure class="frame">
+          <span class="no">01</span>
+          <img src="assets/hw1/background.jpg" alt="无人背景">
+          <figcaption><b>无人背景</b><span>BACKGROUND</span></figcaption>
+        </figure>
+        <figure class="frame">
+          <span class="no">02</span>
+          <img src="assets/hw1/scene_person.jpg" alt="有人进入的当前场景">
+          <figcaption><b>当前场景</b><span>CURRENT</span></figcaption>
+        </figure>
+        <figure class="frame">
+          <span class="no">03</span>
+          <img src="assets/hw1/diff.jpg" alt="相减后的差值图像">
+          <figcaption><b>差值图像 ×3</b><span>DIFFERENCE</span></figcaption>
+        </figure>
+        <figure class="frame">
+          <span class="no">04</span>
+          <img src="assets/hw1/binary.png" alt="Otsu 二值化结果">
+          <figcaption><b>二值化结果</b><span>BINARY</span></figcaption>
+        </figure>
+        <figure class="frame">
+          <span class="no">05</span>
+          <img src="assets/hw1/detected.jpg" alt="红框标出的检测目标">
+          <figcaption><b>红框标出目标</b><span>DETECTED</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="readout">
+        <div><span class="k">OTSU 阈值</span><span class="v">79<small> / 255</small></span></div>
+        <div><span class="k">前景像素占比</span><span class="v">0.81<small> %</small></span></div>
+        <div><span class="k">连通域 / 面积</span><span class="v">3<small> · 1444 / 648 / 1430</small></span></div>
+      </div>
+
+      <div class="section-head">
+        <span class="idx">01 / B</span>
+        <h2>图像旋转</h2>
+        <span class="spec">NEAREST / BILINEAR</span>
+      </div>
+      <p class="lede">反向映射遍历输出像素，30° 时分别用最近邻和双线性插值采样；90° 的源坐标恰好落在整数像素上，无需插值。</p>
+
+      <div class="grid-4">
+        <figure class="frame">
+          <span class="no">A</span>
+          <img src="assets/hw1/portrait.jpg" alt="待旋转的原始人像">
+          <figcaption><b>原始图像</b><span>1835 × 1425</span></figcaption>
+        </figure>
+        <figure class="frame">
+          <span class="no">B</span>
+          <img src="assets/hw1/rot30_nearest.jpg" alt="逆时针旋转 30 度，最近邻插值">
+          <figcaption><b>逆时针 30° · 最近邻</b><span>2302 × 2152</span></figcaption>
+        </figure>
+        <figure class="frame">
+          <span class="no">C</span>
+          <img src="assets/hw1/rot30_bilinear.jpg" alt="逆时针旋转 30 度，双线性插值">
+          <figcaption><b>逆时针 30° · 双线性</b><span>2302 × 2152</span></figcaption>
+        </figure>
+        <figure class="frame">
+          <span class="no">D</span>
+          <img src="assets/hw1/rot90.jpg" alt="逆时针旋转 90 度">
+          <figcaption><b>逆时针 90°</b><span>1425 × 1835</span></figcaption>
+        </figure>
+      </div>
+
+      <p class="footnote">最近邻的斜边呈阶梯状锯齿；双线性边缘过渡平滑。90° 旋转长宽互换，无插值损失。</p>
+    </section>
+
+    <!-- ==================== 作业二 ==================== -->
+    <section id="hw2" class="panel" role="tabpanel" aria-labelledby="tab-hw2" hidden>
+      <div class="section-head">
+        <span class="idx">02 / A</span>
+        <h2>低照度图像增强</h2>
+        <span class="spec" id="spec2">512 × 512 · RGB</span>
+      </div>
+      <p class="lede">以原始清晰图像为参考构造“低照度 + 高斯噪声”的降质图像，比较全局均衡、局部自适应与幂次校正三种策略。</p>
+
+      <div class="toolrow">
+        <label class="upload">载入图像<input type="file" id="file" accept="image/*"></label>
+        <div class="segmented" role="group" aria-label="增强算法">
+          <button data-algo="he" aria-pressed="false">直方图均衡化</button>
+          <button data-algo="clahe" aria-pressed="false">CLAHE</button>
+          <button data-algo="gamma" class="is-active" aria-pressed="true">Gamma 校正＋拉伸</button>
+        </div>
+        <button id="reset" class="ghost">恢复示例</button>
+      </div>
+
+      <div class="viewer">
+        <figure class="view">
+          <span class="tag">SOURCE</span>
+          <img id="src" alt="降质图像">
+          <figcaption><b id="srcCap">降质图像</b><span id="srcMeta">低照度 + 高斯噪声</span></figcaption>
+        </figure>
+        <figure class="view">
+          <span class="tag">OUTPUT</span>
+          <img id="dst" alt="增强结果">
+          <figcaption><b id="dstCap">Gamma 校正＋拉伸结果</b><span id="dstMeta">PSNR / SSIM 已计算</span></figcaption>
+        </figure>
+        <button id="peek" class="peek" type="button" aria-pressed="false">对比原图</button>
+      </div>
+
+      <div class="metrics" id="stats" aria-live="polite"></div>
+
+      <div class="hist">
+        <div class="hist-head">
+          <h3>灰度直方图</h3>
+          <span class="mono">64 BINS · OUTPUT</span>
+        </div>
+        <canvas id="hist"></canvas>
+      </div>
+
+      <p class="footnote" id="metricDesc">PSNR / SSIM 以原始清晰图像为参考；载入自己的图像时没有参考图，只统计前四项。</p>
+    </section>
+
+    <footer class="colophon">
+      <span>数字图像处理 · 作业一 / 作业二</span>
+      <span class="mono">NUMPY · PILLOW · LOCAL ONLY</span>
+    </footer>
+  </main>
+</div>
+
+<script src="enhance.js"></script>
+<script>window.STATIC_MODE = true;</script>
+<script src="app.js"></script>
+</body>
+</html>
