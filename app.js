@@ -174,8 +174,12 @@ function initHw2() {
   if (initPromise) return initPromise;
   initPromise = (async () => {
     try {
-      const metaURL = STATIC ? "data.json" : "/api/hw2";
-      state.hw2 = await (await fetch(metaURL)).json();
+      const metaURL = STATIC ? "data.json?v=2" : "/api/hw2";
+      const data = await (await fetch(metaURL)).json();
+      if (!data.params) {
+        data.params = { gamma: data.gamma, lo: data.lo, hi: data.hi };
+      }
+      state.hw2 = data;
       state.hw2Ready = true;
       showSample("gamma");
     } catch (err) {

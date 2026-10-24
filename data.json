@@ -44,6 +44,11 @@
   "gamma": 0.5838870682224081,
   "lo": 0.0,
   "hi": 0.6196242633686974,
+  "params": {
+    "gamma": 0.58,
+    "lo": 0.0,
+    "hi": 0.62
+  },
   "images": {
     "degraded": "data/lena_degraded.png",
     "he": "results/enh_he.png",
